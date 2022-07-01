@@ -11,10 +11,10 @@ interface INormalizedList {
 }
 
 class TreeStore {
-  readonly normalizedList: INormalizedList = {};
+  private normalizedList: INormalizedList = {};
 
   constructor(
-    readonly storesList: IStoreItem[],
+    private readonly storesList: IStoreItem[],
   ) {
     this.normalizedList = this.getNormalizeList(storesList);
   }
@@ -22,7 +22,7 @@ class TreeStore {
   //
   // PRIVATE
   //
-  private getNormalizeList (items: IStoreItem[]): INormalizedList {
+  private getNormalizeList(items: IStoreItem[]): INormalizedList {
     return items.reduce<INormalizedList>((acc, item): INormalizedList => {
       const normalizedItem = {
         item,
@@ -30,27 +30,27 @@ class TreeStore {
         parents: this.getParentsList(item.id, items),
       };
 
-      return { ...acc, [item.id]: normalizedItem }
-    }, {})
+      return { ...acc, [item.id]: normalizedItem };
+    }, {});
   }
 
-  private getParentsList (itemId: number | 'root', itemsList: IStoreItem[]): number[] {
+  private getParentsList(itemId: number | 'root', itemsList: IStoreItem[]): number[] {
     const [childItem] = itemsList.filter((item) => item.id === itemId);
     if (childItem.parent === 'root') {
-      return []
+      return [];
     }
 
     const [parentItem] = itemsList.filter((item) => item.id === childItem.parent);
     const grandParents = this.getParentsList(parentItem.id, itemsList);
 
-    return [parentItem.id, ...grandParents]
+    return [parentItem.id, ...grandParents];
   }
 
-  private getChildrenList (parentIdsList: number[], itemsList: IStoreItem[], isDeep = false): number[] {
+  private getChildrenList(parentIdsList: number[], itemsList: IStoreItem[], isDeep = false): number[] {
     const childList = parentIdsList.reduce<number[]>((prevChildIds, parentId): number[] => {
       const currentChildIds = itemsList
-          .filter((item) => item.parent === parentId)
-          .map((item) => item.id);
+        .filter((item) => item.parent === parentId)
+        .map((item) => item.id);
 
       return [...prevChildIds, ...currentChildIds];
     }, []);
@@ -58,8 +58,8 @@ class TreeStore {
     if (childList.length && isDeep) {
       return [
         ...childList,
-        ...this.getChildrenList(childList, itemsList, true)
-      ]
+        ...this.getChildrenList(childList, itemsList, true),
+      ];
     }
 
     return childList;
@@ -78,14 +78,14 @@ class TreeStore {
 
   public getChildren(id: IStoreItem['id']) {
     return this.normalizedList[id].children.reduce<IStoreItem[]>((acc, childId): IStoreItem[] => {
-        const currentChild = this.normalizedList[childId].item;
+      const currentChild = this.normalizedList[childId].item;
 
-        if (id === currentChild.parent) {
-          return [...acc, currentChild];
-        }
+      if (id === currentChild.parent) {
+        return [...acc, currentChild];
+      }
 
-        return acc;
-      }, []);
+      return acc;
+    }, []);
   }
 
   public getAllChildren(id: IStoreItem['id']) {
