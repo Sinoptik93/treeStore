@@ -69,8 +69,8 @@ ts.getChildren(4)
 
 // Result:
 [
-  { "id": 7, "parent" :4, "type" :null },
-  { "id": 8, "parent": 4, "type" :null }
+  { "id": 7, "parent": 4, "type": null },
+  { "id": 8, "parent": 4, "type": null }
 ]
 ```
 
