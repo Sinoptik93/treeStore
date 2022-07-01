@@ -35,7 +35,7 @@ describe('TreeStore', () => {
   });
 
   test('getChildren(5)', () => {
-    expect(newTree.getChildren(5)).toBe([]);
+    expect(newTree.getChildren(5)).toStrictEqual([]);
   });
 
   test('getAllChildren(2)', () => {
