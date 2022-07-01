@@ -1,14 +1,4 @@
-import { IStoreItem } from './types';
-
-interface INormalizedItem {
-  parents: (number | 'root')[];
-  children: number[];
-  item: IStoreItem;
-}
-
-interface INormalizedList {
-  [id: number | string | symbol]: INormalizedItem;
-}
+import { IStoreItem, INormalizedList } from './types';
 
 class TreeStore {
   private normalizedList: INormalizedList = {};
