@@ -7,7 +7,7 @@ export interface IStoreItem extends IBaseItem {
   type: string | null;
 }
 
-interface INormalizedItem {
+export interface INormalizedItem {
   parents: (number | 'root')[];
   children: number[];
   item: IStoreItem;
