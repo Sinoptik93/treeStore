@@ -3,16 +3,16 @@ import TreeStore from '../src/treeStore';
 import { example } from './__fixtures__/storesList';
 
 describe('TreeStore', () => {
-  const newTree = new TreeStore(example as IStoreItem[]);
+  const ts = new TreeStore(example as IStoreItem[]);
 
   test('getAll()', () => {
-    expect(newTree.getAll()).toStrictEqual(example);
+    expect(ts.getAll()).toStrictEqual(example);
   });
 
   test('getItem(7)', () => {
     const result = { id: 7, parent: 4, type: null };
 
-    expect(newTree.getItem(7)).toStrictEqual(result);
+    expect(ts.getItem(7)).toStrictEqual(result);
   });
 
   test('getChildren(2)', () => {
@@ -22,7 +22,7 @@ describe('TreeStore', () => {
       { id: 6, parent: 2, type: 'test' },
     ];
 
-    expect(newTree.getChildren(2)).toStrictEqual(result);
+    expect(ts.getChildren(2)).toStrictEqual(result);
   });
 
   test('getChildren(4)', () => {
@@ -31,11 +31,11 @@ describe('TreeStore', () => {
       { id: 8, parent: 4, type: null },
     ];
 
-    expect(newTree.getChildren(4)).toStrictEqual(result);
+    expect(ts.getChildren(4)).toStrictEqual(result);
   });
 
   test('getChildren(5)', () => {
-    expect(newTree.getChildren(5)).toStrictEqual([]);
+    expect(ts.getChildren(5)).toStrictEqual([]);
   });
 
   test('getAllChildren(2)', () => {
@@ -47,7 +47,7 @@ describe('TreeStore', () => {
       { id: 8, parent: 4, type: null },
     ];
 
-    expect(newTree.getAllChildren(2)).toStrictEqual(result);
+    expect(ts.getAllChildren(2)).toStrictEqual(result);
   });
 
   test('getAllParents(7)', () => {
@@ -57,6 +57,6 @@ describe('TreeStore', () => {
       { id: 1, parent: 'root' },
     ];
 
-    expect(newTree.getAllParents(7)).toStrictEqual(result);
+    expect(ts.getAllParents(7)).toStrictEqual(result);
   });
 });
